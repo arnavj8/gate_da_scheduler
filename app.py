@@ -382,12 +382,12 @@ $$\det(M) = 2 \cdot 2 = 4$$"""
         "year": 2024,
         "subject": "Machine Learning",
         "type": "MCQ",
-        "question": r"Consider the following statements regarding Linear Regression and Logistic Regression:
+        "question": r"""Consider the following statements regarding Linear Regression and Logistic Regression:
 
 I. Linear Regression assumes a linear relationship between the input variables and the continuous output.
 II. Logistic Regression outputs a probability value bounded between 0 and 1.
 
-Which of the statements is/are correct?",
+Which of the statements is/are correct?""",
         "options": ["a) Only I", "b) Only II", "c) Both I and II", "d) Neither I nor II"],
         "answer": "c) Both I and II",
         "explanation": r"""- **Statement I is correct**: Linear Regression models the relationship between a continuous dependent variable $y$ and independent variables $X$ as a linear equation: $y = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p + \epsilon$.
