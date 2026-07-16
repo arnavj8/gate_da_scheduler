@@ -43,6 +43,45 @@ def extract_text_from_pdf(pdf_path):
             full_text += f"\n--- PAGE {idx+1} ---\n{text}"
     return full_text
 
+import re
+
+def clean_json_string(json_str):
+    """
+    Cleans unescaped backslashes in LaTeX commands within a raw JSON string.
+    Ensures backslashes followed by non-escape characters (e.g. \lambda, \frac)
+    are properly doubled to \\lambda, \\frac.
+    """
+    # Known LaTeX command prefixes that start with JSON escape letters
+    latex_escapes = ['neq', 'newline', 'theta', 'times', 'text', 'right', 'beta', 'frac', 'union', 'unconstrained']
+    
+    def repl(match):
+        val = match.group(0)
+        if val in [r'\\', r'\"', r'\/']:
+            return val
+        
+        char = val[1]
+        if char in 'bfnrtu':
+            # Check if the matched string starts with any known LaTeX commands
+            rest = val[2:]
+            for prefix in latex_escapes:
+                if (char + rest).startswith(prefix):
+                    return '\\\\' + val[1:]
+            
+            # Check if it's a valid hex unicode escape (e.g. \u0020) vs a LaTeX command (e.g. \union)
+            if char == 'u':
+                if len(val) == 6 and all(c in '0123456789abcdefABCDEF' for c in val[2:]):
+                    return val
+                else:
+                    return '\\\\' + val[1:]
+                    
+            return val
+            
+        return '\\\\' + val[1:]
+
+    # Match backslash followed by a word up to 15 characters, or any single character
+    pattern = r'\\[a-zA-Z]{1,15}|\\.'
+    return re.sub(pattern, repl, json_str)
+
 def call_llm_to_parse_questions(page_text, year):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -99,7 +138,9 @@ Here is the extracted text:
             content = content[:-3]
         content = content.strip()
         
-        return json.loads(content)
+        # Clean up unescaped LaTeX backslashes inside JSON string
+        cleaned_content = clean_json_string(content)
+        return json.loads(cleaned_content)
     except Exception as e:
         print(f"Error calling LLM or parsing response: {e}")
         return []
