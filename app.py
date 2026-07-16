@@ -342,100 +342,201 @@ GATE_DA_PYQS = [
         "year": 2024,
         "subject": "Probability & Statistics",
         "type": "MCQ",
-        "question": "Let $X$ be a Poisson random variable with parameter $\\lambda$. If $P(X = 0) = 0.2$, what is the variance of $X$?",
-        "options": ["a) $\\ln 5$", "b) $\\ln 2$", "c) 5", "d) 2"],
-        "answer": "a) $\\ln 5$",
-        "explanation": "For a Poisson random variable $X$, the probability mass function is $P(X = k) = \\frac{e^{-\\lambda} \\lambda^k}{k!}$.\n\nGiven $P(X = 0) = e^{-\\lambda} = 0.2 = \\frac{1}{5}$.\n\nTaking the natural logarithm on both sides:\n$-\\lambda = \\ln(1/5) = -\\ln(5) \\implies \\lambda = \\ln(5)$.\n\nSince the variance of a Poisson random variable is equal to its parameter $\\lambda$, the variance is $\\ln 5$."
+        "question": r"Let $X$ be a Poisson random variable with parameter $\lambda$. If $P(X = 0) = 0.2$, what is the variance of $X$?",
+        "options": [r"a) $\ln 5$", r"b) $\ln 2$", "c) 5", "d) 2"],
+        "answer": r"a) $\ln 5$",
+        "explanation": r"""For a Poisson random variable $X$, the probability mass function is:
+$$P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}$$
+
+Given $P(X = 0) = 0.2$:
+$$P(X = 0) = \frac{e^{-\lambda} \lambda^0}{0!} = e^{-\lambda} = 0.2 = \frac{1}{5}$$
+
+Taking the natural logarithm on both sides:
+$$\ln(e^{-\lambda}) = \ln(1/5) \implies -\lambda = -\ln(5) \implies \lambda = \ln(5)$$
+
+Since the variance of a Poisson random variable is equal to its parameter $\lambda$:
+$$\text{Var}(X) = \lambda = \ln 5$$"""
     },
     {
         "id": 2,
         "year": 2024,
         "subject": "Linear Algebra",
         "type": "MCQ",
-        "question": "Let $M$ be a $3\\times3$ real matrix with eigenvalues 2, $1+i$, and $1-i$. What is the determinant of $M$?",
-        "options": ["a) 2", "b) 4", "c) 0", "d) $2+2i$"],
+        "question": r"Let $M$ be a $3\times3$ real matrix with eigenvalues $2$, $1+i$, and $1-i$. What is the determinant of $M$?",
+        "options": ["a) 2", "b) 4", "c) 0", r"d) $2+2i$"],
         "answer": "b) 4",
-        "explanation": "The determinant of a matrix is equal to the product of its eigenvalues.\n\nThe eigenvalues are $2$, $1+i$, and $1-i$.\n\nTherefore, $\\det(M) = 2 \\times (1+i) \\times (1-i) = 2 \\times (1 - i^2) = 2 \\times (1 - (-1)) = 2 \\times 2 = 4$."
+        "explanation": r"""The determinant of any square matrix $M$ is equal to the product of its eigenvalues.
+
+Given eigenvalues:
+$$\lambda_1 = 2, \quad \lambda_2 = 1+i, \quad \lambda_3 = 1-i$$
+
+Calculate the product:
+$$\det(M) = \lambda_1 \cdot \lambda_2 \cdot \lambda_3$$
+$$\det(M) = 2 \cdot (1+i) \cdot (1-i)$$
+
+Since $(1+i)(1-i) = 1^2 - i^2 = 1 - (-1) = 2$:
+$$\det(M) = 2 \cdot 2 = 4$$"""
     },
     {
         "id": 3,
         "year": 2024,
         "subject": "Machine Learning",
         "type": "MCQ",
-        "question": "Consider the following statements regarding Linear Regression and Logistic Regression:\n\nI. Linear Regression assumes a linear relationship between the input variables and the continuous output.\nII. Logistic Regression outputs a probability value bounded between 0 and 1.\n\nWhich of the statements is/are correct?",
+        "question": r"Consider the following statements regarding Linear Regression and Logistic Regression:
+
+I. Linear Regression assumes a linear relationship between the input variables and the continuous output.
+II. Logistic Regression outputs a probability value bounded between 0 and 1.
+
+Which of the statements is/are correct?",
         "options": ["a) Only I", "b) Only II", "c) Both I and II", "d) Neither I nor II"],
         "answer": "c) Both I and II",
-        "explanation": "Statement I is correct because linear regression models the target variable as a linear combination of input features.\n\nStatement II is correct because logistic regression uses the sigmoid function $\\sigma(z) = \\frac{1}{1+e^{-z}}$ which maps any real number to the range $(0, 1)$, representing a probability."
+        "explanation": r"""- **Statement I is correct**: Linear Regression models the relationship between a continuous dependent variable $y$ and independent variables $X$ as a linear equation: $y = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p + \epsilon$.
+- **Statement II is correct**: Logistic Regression uses the logistic (sigmoid) function to map the linear predictor output to a probability value between $0$ and $1$:
+$$P(y=1|x) = \sigma(z) = \frac{1}{1 + e^{-z}}$$
+where $z = \beta^T x$. Thus, both statements are correct."""
     },
     {
         "id": 4,
         "year": 2024,
         "subject": "Database Management & Warehousing",
         "type": "MCQ",
-        "question": "Suppose a relation schema $R(A, B, C, D)$ has the functional dependencies $A \\rightarrow B$ and $B \\rightarrow C$. What is the highest normal form that relation $R$ satisfies?",
+        "question": r"Suppose a relation schema $R(A, B, C, D)$ has the functional dependencies $A \rightarrow B$ and $B \rightarrow C$. What is the highest normal form that relation $R$ satisfies?",
         "options": ["a) 1NF", "b) 2NF", "c) 3NF", "d) BCNF"],
         "answer": "a) 1NF",
-        "explanation": "First, let's find the candidate keys. The attribute $D$ does not appear on the right side of any dependency, and $A$ determines $B$ and $B$ determines $C$.\n\nThus, the candidate key is $AD$.\n\nSince $AD$ is the only candidate key:\n- Prime attributes: $A, D$.\n- Non-prime attributes: $B, C$.\n\nFor $A \\rightarrow B$: $A$ (part of key) determines $B$ (non-prime). This is a partial dependency. Since a partial dependency exists, $R$ is not in 2NF. Therefore, the highest normal form satisfied is 1NF."
+        "explanation": r"""To find the highest normal form, we first determine the candidate keys of $R(A, B, C, D)$:
+1. Find the closure of attributes. Attribute $D$ does not appear on the right side of any functional dependency, so it must be part of any candidate key.
+2. Let's find $(AD)^+$:
+   - $(AD)^+ = \{A, D\}$ (reflexivity)
+   - Since $A \rightarrow B$, $(AD)^+ = \{A, B, D\}$
+   - Since $B \rightarrow C$, $(AD)^+ = \{A, B, C, D\}$
+3. Since $(AD)^+$ contains all attributes, $AD$ is the candidate key.
+
+Identify Prime and Non-Prime attributes:
+- **Prime attributes** (part of any candidate key): $\{A, D\}$
+- **Non-prime attributes** (not part of any candidate key): $\{B, C\}$
+
+Check for 2NF (No partial dependency):
+- A functional dependency $X \rightarrow Y$ is a partial dependency if $X$ is a proper subset of a candidate key and $Y$ is a non-prime attribute.
+- For $A \rightarrow B$: $A$ is a proper subset of the candidate key $AD$, and $B$ is a non-prime attribute. This is a **partial dependency**.
+- Since $R$ has a partial dependency, it is **not in 2NF**.
+
+Since it does not satisfy 2NF but satisfies 1NF (all attributes are atomic), the highest normal form satisfied is **1NF**."""
     },
     {
         "id": 5,
         "year": 2025,
         "subject": "Programming, Data Structures & Algorithms",
         "type": "MCQ",
-        "question": "Which of the following sorting algorithms has a worst-case time complexity of $O(n \\log n)$?",
+        "question": r"Which of the following sorting algorithms has a worst-case time complexity of $O(n \log n)$?",
         "options": ["a) Bubble Sort", "b) Quick Sort", "c) Merge Sort", "d) Insertion Sort"],
         "answer": "c) Merge Sort",
-        "explanation": "Merge Sort uses a divide-and-conquer strategy that always divides the array into halves and takes $O(n)$ time to merge them, resulting in $O(n \\log n)$ time complexity in best, average, and worst cases.\n\nBubble Sort, Insertion Sort, and Quick Sort all have $O(n^2)$ worst-case time complexities."
+        "explanation": r"""Let's analyze the worst-case time complexities of each algorithm:
+- **Bubble Sort**: $O(n^2)$ (when the array is sorted in reverse order).
+- **Insertion Sort**: $O(n^2)$ (when the array is sorted in reverse order).
+- **Quick Sort**: $O(n^2)$ (when the pivot consistently divides the array into unbalanced partitions, e.g., if the array is already sorted and we choose the first or last element as pivot).
+- **Merge Sort**: $O(n \log n)$ in all cases (best, average, and worst) because it always divides the array into two equal halves and takes $O(n)$ time to merge them.
+
+Therefore, **Merge Sort** is the correct answer."""
     },
     {
         "id": 6,
         "year": 2025,
         "subject": "Artificial Intelligence (AI)",
         "type": "MCQ",
-        "question": "In informed search, if a heuristic function $h(n)$ is admissible, what does it guarantee for the $A^*$ search algorithm?",
+        "question": r"In informed search, if a heuristic function $h(n)$ is admissible, what does it guarantee for the $A^*$ search algorithm?",
         "options": ["a) It will always find the optimal solution if one exists.", "b) It will use less memory than BFS.", "c) It will always expand fewer nodes than Greedy Best-First Search.", "d) It will run in linear time."],
         "answer": "a) It will always find the optimal solution if one exists.",
-        "explanation": "An admissible heuristic never overestimates the cost to reach the goal. When $A^*$ search uses an admissible heuristic on a tree search, it is guaranteed to be optimal (i.e., it will find the lowest-cost path to a goal)."
+        "explanation": r"""- A heuristic function $h(n)$ is **admissible** if it never overestimates the actual cost to reach the goal node from node $h(n)$, i.e., $h(n) \le h^*(n)$ for all $n$, where $h^*(n)$ is the true optimal cost.
+- If the heuristic function is admissible, $A^*$ search is guaranteed to return the **optimal path/solution** (the path with the lowest cost) to the goal node, assuming a solution exists.
+
+Thus, statement (a) is correct."""
     },
     {
         "id": 7,
         "year": 2026,
         "subject": "Calculus & Optimization",
         "type": "MCQ",
-        "question": "Consider the function $f(x) = x^3 - 3x^2 + 2$. What is the local minimum of this function?",
-        "options": ["a) $x = 0$", "b) $x = 2$", "c) $x = -2$", "d) $x = 1$"],
-        "answer": "b) $x = 2$",
-        "explanation": "First, take the first derivative: $f'(x) = 3x^2 - 6x$.\n\nSet $f'(x) = 0 \\implies 3x(x - 2) = 0 \\implies x = 0$ or $x = 2$.\n\nNext, take the second derivative: $f''(x) = 6x - 6$.\n\nEvaluate $f''(x)$ at the critical points:\n- At $x = 0$: $f''(0) = -6 < 0 \\implies$ Local maximum.\n- At $x = 2$: $f''(2) = 6 > 0 \\implies$ Local minimum.\n\nThus, the local minimum occurs at $x = 2$."
+        "question": r"Consider the function $f(x) = x^3 - 3x^2 + 2$. What is the local minimum of this function?",
+        "options": [r"a) $x = 0$", r"b) $x = 2$", r"c) $x = -2$", r"d) $x = 1$"],
+        "answer": r"b) $x = 2$",
+        "explanation": r"""To find the local minimum, we follow these steps:
+1. Find the first derivative $f'(x)$ and set it to $0$:
+   $$f'(x) = 3x^2 - 6x = 0$$
+   $$3x(x - 2) = 0 \implies x = 0 \text{ or } x = 2$$
+   These are our critical points.
+
+2. Find the second derivative $f''(x)$:
+   $$f''(x) = 6x - 6$$
+
+3. Evaluate the second derivative at the critical points:
+   - At $x = 0$: $f''(0) = 6(0) - 6 = -6 < 0$. Since $f''(0) < 0$, $x = 0$ is a local maximum.
+   - At $x = 2$: $f''(2) = 6(2) - 6 = 6 > 0$. Since $f''(2) > 0$, $x = 2$ is a local minimum.
+
+Therefore, the local minimum occurs at $x = 2$."""
     },
     {
         "id": 8,
         "year": 2025,
         "subject": "Probability & Statistics",
         "type": "MCQ",
-        "question": "Consider a fair six-sided die. What is the expected number of rolls needed to get the number 6 for the first time?",
+        "question": r"Consider a fair six-sided die. What is the expected number of rolls needed to get the number 6 for the first time?",
         "options": ["a) 6", "b) 36", "c) 5", "d) 1"],
         "answer": "a) 6",
-        "explanation": "This follows a geometric distribution where the probability of success $p = 1/6$.\n\nThe expected value of a geometric random variable (number of trials until the first success) is $1/p$.\n\nTherefore, the expected number of rolls is $1 / (1/6) = 6$."
+        "explanation": r"""Let $X$ be the number of rolls needed to get the first $6$.
+- This scenario is modeled by a **Geometric Distribution**, where we perform independent Bernoulli trials until the first success.
+- The probability of success (rolling a $6$) in a single trial is $p = \frac{1}{6}$.
+- The expected value (mean) of a geometrically distributed random variable $X$ representing the number of trials up to and including the first success is:
+$$E[X] = \frac{1}{p}$$
+
+Substituting $p = \frac{1}{6}$:
+$$E[X] = \frac{1}{1/6} = 6$$
+
+Thus, the expected number of rolls is $6$."""
     },
     {
         "id": 9,
         "year": 2026,
         "subject": "Linear Algebra",
         "type": "MCQ",
-        "question": "Let $A$ be an idempotent matrix, meaning $A^2 = A$. What are the only possible eigenvalues of $A$?",
+        "question": r"Let $A$ be an idempotent matrix, meaning $A^2 = A$. What are the only possible eigenvalues of $A$?",
         "options": ["a) 0 and 1", "b) 1 and -1", "c) Any real number", "d) 0 and -1"],
         "answer": "a) 0 and 1",
-        "explanation": "Let $\\lambda$ be an eigenvalue of $A$ with corresponding eigenvector $v \\neq 0$. Thus, $Av = \\lambda v$.\n\nSince $A^2 = A$, we have:\n$A^2v = Av \\implies A(Av) = \\lambda v \\implies A(\\lambda v) = \\lambda v \\implies \\lambda(Av) = \\lambda v \\implies \\lambda^2 v = \\lambda v$.\n\nSince $v \\neq 0$, we have:\n$\\lambda^2 = \\lambda \\implies \\lambda(\\lambda - 1) = 0 \\implies \\lambda = 0$ or $\\lambda = 1$."
+        "explanation": r"""Let $\lambda$ be an eigenvalue of $A$ and let $v$ be its corresponding non-zero eigenvector. By definition:
+$$Av = \lambda v$$
+
+Multiply both sides by $A$:
+$$A(Av) = A(\lambda v)$$
+$$A^2 v = \lambda (Av)$$
+
+Since $A^2 = A$ and $Av = \lambda v$:
+$$Av = \lambda (\lambda v)$$
+$$\lambda v = \lambda^2 v$$
+$$(\lambda^2 - \lambda) v = 0$$
+
+Since $v$ is a non-zero eigenvector ($v \neq 0$), we must have:
+$$\lambda^2 - \lambda = 0 \implies \lambda(\lambda - 1) = 0$$
+$$\lambda = 0 \quad \text{or} \quad \lambda = 1$$
+
+Thus, the only possible eigenvalues of an idempotent matrix are $0$ and $1$."""
     },
     {
         "id": 10,
         "year": 2026,
         "subject": "Machine Learning",
         "type": "MCQ",
-        "question": "In Support Vector Machines (SVM), what is the effect of increasing the regularization parameter $C$ (soft margin parameter) in the objective function?",
+        "question": r"In Support Vector Machines (SVM), what is the effect of increasing the regularization parameter $C$ (soft margin parameter) in the objective function?",
         "options": ["a) It allows more margin violations, leading to a wider margin.", "b) It penalizes margin violations more heavily, leading to a narrower margin.", "c) It makes the decision boundary completely linear.", "d) It has no effect on the margin width."],
         "answer": "b) It penalizes margin violations more heavily, leading to a narrower margin.",
-        "explanation": "The parameter $C$ controls the trade-off between maximizing the margin and minimizing the training classification error.\n\nA large value of $C$ penalizes misclassifications heavily, forcing the SVM to find a boundary that classifies training points correctly at the expense of a smaller/narrower margin.\n\nA small value of $C$ allows more margin violations for a wider margin."
+        "explanation": r"""The SVM optimization objective (soft margin formulation) is:
+$$\min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i$$
+subject to $y_i(w^T x_i + b) \ge 1 - \xi_i$ and $\xi_i \ge 0$.
+
+Here:
+- The parameter $C$ acts as a penalty weight for training classification violations ($\xi_i$).
+- **If $C$ is large**: The objective function penalizes margin violations heavily. The optimization will focus on making the slack variables $\xi_i$ as close to $0$ as possible to avoid high penalty, resulting in a **narrower margin** that fits the training data more tightly (high variance, risk of overfitting).
+- **If $C$ is small**: The optimization tolerates more misclassifications/violations in favor of finding a **wider margin** (high bias, risk of underfitting).
+
+Therefore, increasing $C$ penalizes violations more heavily and leads to a narrower margin."""
     }
 ]
 
@@ -792,15 +893,15 @@ elif page == "📝 PYQ Practice":
             with st.container():
                 st.markdown(
                     f"""
-                    <div style="background-color: #f1f3f4; padding: 15px; border-radius: 8px; border-left: 5px solid #1a73e8; margin-bottom: 10px;">
-                        <span style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">GATE DA {q['year']}</span>
-                        <span style="background-color: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['subject']}</span>
-                        <span style="background-color: #fce8e6; color: #d93025; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['type']}</span>
-                        <p style="margin-top: 10px; font-size: 1.1em; font-weight: 500;">Q{idx+1}. {q['question']}</p>
+                    <div style="margin-bottom: 8px;">
+                        <span style="background-color: #1a73e8; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">GATE DA {q['year']}</span>
+                        <span style="background-color: #e8f0fe; color: #1a73e8; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['subject']}</span>
+                        <span style="background-color: #fce8e6; color: #d93025; padding: 3px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['type']}</span>
                     </div>
                     """,
                     unsafe_allow_html=True
                 )
+                st.markdown(f"**Q{idx+1}.** {q['question']}")
 
                 # Question Input depending on type
                 user_ans = None
