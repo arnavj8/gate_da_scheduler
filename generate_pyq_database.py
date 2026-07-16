@@ -78,7 +78,8 @@ Here is the extracted text:
         "model": MODEL_NAME,
         "messages": [
             {"role": "user", "content": prompt}
-        ]
+        ],
+        "max_tokens": 4096
     }
     
     try:
