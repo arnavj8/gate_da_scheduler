@@ -335,210 +335,29 @@ GATE_DA_TOPICS = {
     ]
 }
 
-# GATE DA Previous Year Questions Database (2024-2026)
-GATE_DA_PYQS = [
-    {
-        "id": 1,
-        "year": 2024,
-        "subject": "Probability & Statistics",
-        "type": "MCQ",
-        "question": r"Let $X$ be a Poisson random variable with parameter $\lambda$. If $P(X = 0) = 0.2$, what is the variance of $X$?",
-        "options": [r"a) $\ln 5$", r"b) $\ln 2$", "c) 5", "d) 2"],
-        "answer": r"a) $\ln 5$",
-        "explanation": r"""For a Poisson random variable $X$, the probability mass function is:
-$$P(X = k) = \frac{e^{-\lambda} \lambda^k}{k!}$$
+# GATE DA Previous Year Questions Database Loader
+DB_FILE = "pyq_database.json"
 
-Given $P(X = 0) = 0.2$:
-$$P(X = 0) = \frac{e^{-\lambda} \lambda^0}{0!} = e^{-\lambda} = 0.2 = \frac{1}{5}$$
+def load_pyq_database():
+    if os.path.exists(DB_FILE):
+        try:
+            with open(DB_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            st.error(f"Error loading PYQ database: {e}")
+    return []
 
-Taking the natural logarithm on both sides:
-$$\ln(e^{-\lambda}) = \ln(1/5) \implies -\lambda = -\ln(5) \implies \lambda = \ln(5)$$
+def save_pyq_database(data):
+    try:
+        with open(DB_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        return True
+    except Exception as e:
+        st.error(f"Error saving PYQ database: {e}")
+        return False
 
-Since the variance of a Poisson random variable is equal to its parameter $\lambda$:
-$$\text{Var}(X) = \lambda = \ln 5$$"""
-    },
-    {
-        "id": 2,
-        "year": 2024,
-        "subject": "Linear Algebra",
-        "type": "MCQ",
-        "question": r"Let $M$ be a $3\times3$ real matrix with eigenvalues $2$, $1+i$, and $1-i$. What is the determinant of $M$?",
-        "options": ["a) 2", "b) 4", "c) 0", r"d) $2+2i$"],
-        "answer": "b) 4",
-        "explanation": r"""The determinant of any square matrix $M$ is equal to the product of its eigenvalues.
-
-Given eigenvalues:
-$$\lambda_1 = 2, \quad \lambda_2 = 1+i, \quad \lambda_3 = 1-i$$
-
-Calculate the product:
-$$\det(M) = \lambda_1 \cdot \lambda_2 \cdot \lambda_3$$
-$$\det(M) = 2 \cdot (1+i) \cdot (1-i)$$
-
-Since $(1+i)(1-i) = 1^2 - i^2 = 1 - (-1) = 2$:
-$$\det(M) = 2 \cdot 2 = 4$$"""
-    },
-    {
-        "id": 3,
-        "year": 2024,
-        "subject": "Machine Learning",
-        "type": "MCQ",
-        "question": r"""Consider the following statements regarding Linear Regression and Logistic Regression:
-
-I. Linear Regression assumes a linear relationship between the input variables and the continuous output.
-II. Logistic Regression outputs a probability value bounded between 0 and 1.
-
-Which of the statements is/are correct?""",
-        "options": ["a) Only I", "b) Only II", "c) Both I and II", "d) Neither I nor II"],
-        "answer": "c) Both I and II",
-        "explanation": r"""- **Statement I is correct**: Linear Regression models the relationship between a continuous dependent variable $y$ and independent variables $X$ as a linear equation: $y = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p + \epsilon$.
-- **Statement II is correct**: Logistic Regression uses the logistic (sigmoid) function to map the linear predictor output to a probability value between $0$ and $1$:
-$$P(y=1|x) = \sigma(z) = \frac{1}{1 + e^{-z}}$$
-where $z = \beta^T x$. Thus, both statements are correct."""
-    },
-    {
-        "id": 4,
-        "year": 2024,
-        "subject": "Database Management & Warehousing",
-        "type": "MCQ",
-        "question": r"Suppose a relation schema $R(A, B, C, D)$ has the functional dependencies $A \rightarrow B$ and $B \rightarrow C$. What is the highest normal form that relation $R$ satisfies?",
-        "options": ["a) 1NF", "b) 2NF", "c) 3NF", "d) BCNF"],
-        "answer": "a) 1NF",
-        "explanation": r"""To find the highest normal form, we first determine the candidate keys of $R(A, B, C, D)$:
-1. Find the closure of attributes. Attribute $D$ does not appear on the right side of any functional dependency, so it must be part of any candidate key.
-2. Let's find $(AD)^+$:
-   - $(AD)^+ = \{A, D\}$ (reflexivity)
-   - Since $A \rightarrow B$, $(AD)^+ = \{A, B, D\}$
-   - Since $B \rightarrow C$, $(AD)^+ = \{A, B, C, D\}$
-3. Since $(AD)^+$ contains all attributes, $AD$ is the candidate key.
-
-Identify Prime and Non-Prime attributes:
-- **Prime attributes** (part of any candidate key): $\{A, D\}$
-- **Non-prime attributes** (not part of any candidate key): $\{B, C\}$
-
-Check for 2NF (No partial dependency):
-- A functional dependency $X \rightarrow Y$ is a partial dependency if $X$ is a proper subset of a candidate key and $Y$ is a non-prime attribute.
-- For $A \rightarrow B$: $A$ is a proper subset of the candidate key $AD$, and $B$ is a non-prime attribute. This is a **partial dependency**.
-- Since $R$ has a partial dependency, it is **not in 2NF**.
-
-Since it does not satisfy 2NF but satisfies 1NF (all attributes are atomic), the highest normal form satisfied is **1NF**."""
-    },
-    {
-        "id": 5,
-        "year": 2025,
-        "subject": "Programming, Data Structures & Algorithms",
-        "type": "MCQ",
-        "question": r"Which of the following sorting algorithms has a worst-case time complexity of $O(n \log n)$?",
-        "options": ["a) Bubble Sort", "b) Quick Sort", "c) Merge Sort", "d) Insertion Sort"],
-        "answer": "c) Merge Sort",
-        "explanation": r"""Let's analyze the worst-case time complexities of each algorithm:
-- **Bubble Sort**: $O(n^2)$ (when the array is sorted in reverse order).
-- **Insertion Sort**: $O(n^2)$ (when the array is sorted in reverse order).
-- **Quick Sort**: $O(n^2)$ (when the pivot consistently divides the array into unbalanced partitions, e.g., if the array is already sorted and we choose the first or last element as pivot).
-- **Merge Sort**: $O(n \log n)$ in all cases (best, average, and worst) because it always divides the array into two equal halves and takes $O(n)$ time to merge them.
-
-Therefore, **Merge Sort** is the correct answer."""
-    },
-    {
-        "id": 6,
-        "year": 2025,
-        "subject": "Artificial Intelligence (AI)",
-        "type": "MCQ",
-        "question": r"In informed search, if a heuristic function $h(n)$ is admissible, what does it guarantee for the $A^*$ search algorithm?",
-        "options": ["a) It will always find the optimal solution if one exists.", "b) It will use less memory than BFS.", "c) It will always expand fewer nodes than Greedy Best-First Search.", "d) It will run in linear time."],
-        "answer": "a) It will always find the optimal solution if one exists.",
-        "explanation": r"""- A heuristic function $h(n)$ is **admissible** if it never overestimates the actual cost to reach the goal node from node $h(n)$, i.e., $h(n) \le h^*(n)$ for all $n$, where $h^*(n)$ is the true optimal cost.
-- If the heuristic function is admissible, $A^*$ search is guaranteed to return the **optimal path/solution** (the path with the lowest cost) to the goal node, assuming a solution exists.
-
-Thus, statement (a) is correct."""
-    },
-    {
-        "id": 7,
-        "year": 2026,
-        "subject": "Calculus & Optimization",
-        "type": "MCQ",
-        "question": r"Consider the function $f(x) = x^3 - 3x^2 + 2$. What is the local minimum of this function?",
-        "options": [r"a) $x = 0$", r"b) $x = 2$", r"c) $x = -2$", r"d) $x = 1$"],
-        "answer": r"b) $x = 2$",
-        "explanation": r"""To find the local minimum, we follow these steps:
-1. Find the first derivative $f'(x)$ and set it to $0$:
-   $$f'(x) = 3x^2 - 6x = 0$$
-   $$3x(x - 2) = 0 \implies x = 0 \text{ or } x = 2$$
-   These are our critical points.
-
-2. Find the second derivative $f''(x)$:
-   $$f''(x) = 6x - 6$$
-
-3. Evaluate the second derivative at the critical points:
-   - At $x = 0$: $f''(0) = 6(0) - 6 = -6 < 0$. Since $f''(0) < 0$, $x = 0$ is a local maximum.
-   - At $x = 2$: $f''(2) = 6(2) - 6 = 6 > 0$. Since $f''(2) > 0$, $x = 2$ is a local minimum.
-
-Therefore, the local minimum occurs at $x = 2$."""
-    },
-    {
-        "id": 8,
-        "year": 2025,
-        "subject": "Probability & Statistics",
-        "type": "MCQ",
-        "question": r"Consider a fair six-sided die. What is the expected number of rolls needed to get the number 6 for the first time?",
-        "options": ["a) 6", "b) 36", "c) 5", "d) 1"],
-        "answer": "a) 6",
-        "explanation": r"""Let $X$ be the number of rolls needed to get the first $6$.
-- This scenario is modeled by a **Geometric Distribution**, where we perform independent Bernoulli trials until the first success.
-- The probability of success (rolling a $6$) in a single trial is $p = \frac{1}{6}$.
-- The expected value (mean) of a geometrically distributed random variable $X$ representing the number of trials up to and including the first success is:
-$$E[X] = \frac{1}{p}$$
-
-Substituting $p = \frac{1}{6}$:
-$$E[X] = \frac{1}{1/6} = 6$$
-
-Thus, the expected number of rolls is $6$."""
-    },
-    {
-        "id": 9,
-        "year": 2026,
-        "subject": "Linear Algebra",
-        "type": "MCQ",
-        "question": r"Let $A$ be an idempotent matrix, meaning $A^2 = A$. What are the only possible eigenvalues of $A$?",
-        "options": ["a) 0 and 1", "b) 1 and -1", "c) Any real number", "d) 0 and -1"],
-        "answer": "a) 0 and 1",
-        "explanation": r"""Let $\lambda$ be an eigenvalue of $A$ and let $v$ be its corresponding non-zero eigenvector. By definition:
-$$Av = \lambda v$$
-
-Multiply both sides by $A$:
-$$A(Av) = A(\lambda v)$$
-$$A^2 v = \lambda (Av)$$
-
-Since $A^2 = A$ and $Av = \lambda v$:
-$$Av = \lambda (\lambda v)$$
-$$\lambda v = \lambda^2 v$$
-$$(\lambda^2 - \lambda) v = 0$$
-
-Since $v$ is a non-zero eigenvector ($v \neq 0$), we must have:
-$$\lambda^2 - \lambda = 0 \implies \lambda(\lambda - 1) = 0$$
-$$\lambda = 0 \quad \text{or} \quad \lambda = 1$$
-
-Thus, the only possible eigenvalues of an idempotent matrix are $0$ and $1$."""
-    },
-    {
-        "id": 10,
-        "year": 2026,
-        "subject": "Machine Learning",
-        "type": "MCQ",
-        "question": r"In Support Vector Machines (SVM), what is the effect of increasing the regularization parameter $C$ (soft margin parameter) in the objective function?",
-        "options": ["a) It allows more margin violations, leading to a wider margin.", "b) It penalizes margin violations more heavily, leading to a narrower margin.", "c) It makes the decision boundary completely linear.", "d) It has no effect on the margin width."],
-        "answer": "b) It penalizes margin violations more heavily, leading to a narrower margin.",
-        "explanation": r"""The SVM optimization objective (soft margin formulation) is:
-$$\min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i$$
-subject to $y_i(w^T x_i + b) \ge 1 - \xi_i$ and $\xi_i \ge 0$.
-
-Here:
-- The parameter $C$ acts as a penalty weight for training classification violations ($\xi_i$).
-- **If $C$ is large**: The objective function penalizes margin violations heavily. The optimization will focus on making the slack variables $\xi_i$ as close to $0$ as possible to avoid high penalty, resulting in a **narrower margin** that fits the training data more tightly (high variance, risk of overfitting).
-- **If $C$ is small**: The optimization tolerates more misclassifications/violations in favor of finding a **wider margin** (high bias, risk of underfitting).
-
-Therefore, increasing $C$ penalizes violations more heavily and leads to a narrower margin."""
-    }
-]
+# Initialize local questions list from database file
+GATE_DA_PYQS = load_pyq_database()
 
 # Initialize database on startup
 init_db()
@@ -847,6 +666,64 @@ elif page == "📚 Study Topics":
 elif page == "📝 PYQ Practice":
     st.title("📝 PYQ Practice (2024-2026)")
     st.markdown("Practice official Previous Year Questions (PYQs) from GATE Data Science & AI (DA) exams.")
+
+    with st.expander("📥 Import/Upload PYQ Database (JSON)", expanded=False):
+        st.markdown("""
+        You can upload a custom JSON file to add new questions to the database. The file should be a JSON array of objects with the following format:
+        ```json
+        [
+          {
+            "id": 11,
+            "year": 2026,
+            "subject": "Linear Algebra",
+            "type": "MCQ",
+            "question": "Your question here...",
+            "options": ["a) ...", "b) ...", "c) ...", "d) ..."],
+            "answer": "a) ...",
+            "explanation": "Your explanation here..."
+          }
+        ]
+        ```
+        """)
+        uploaded_file = st.file_uploader("Choose a JSON file", type=["json"], key="pyq_file_uploader")
+        if uploaded_file is not None:
+            try:
+                uploaded_data = json.load(uploaded_file)
+                if isinstance(uploaded_data, list):
+                    # Basic validation of keys
+                    valid = True
+                    required_keys = {"id", "year", "subject", "type", "question", "options", "answer", "explanation"}
+                    for idx_item, q_item in enumerate(uploaded_data):
+                        if not required_keys.issubset(q_item.keys()):
+                            st.error(f"Item {idx_item+1} is missing required keys. Required: {required_keys}")
+                            valid = False
+                            break
+                    
+                    if valid:
+                        # Offer to append or replace
+                        col_append, col_replace = st.columns(2)
+                        with col_append:
+                            if st.button("➕ Append to Existing", key="btn_append_pyq"):
+                                # Merge databases based on ID
+                                existing_ids = {item["id"] for item in GATE_DA_PYQS}
+                                merged_data = list(GATE_DA_PYQS)
+                                added_count = 0
+                                for item in uploaded_data:
+                                    if item["id"] not in existing_ids:
+                                        merged_data.append(item)
+                                        added_count += 1
+                                if save_pyq_database(merged_data):
+                                    st.success(f"Successfully added {added_count} new questions!")
+                                    st.rerun()
+                        with col_replace:
+                            if st.button("🔄 Replace Entire Database", key="btn_replace_pyq"):
+                                if save_pyq_database(uploaded_data):
+                                    st.success("Successfully replaced database!")
+                                    st.rerun()
+                else:
+                    st.error("JSON file must contain an array of question objects.")
+            except Exception as e:
+                st.error(f"Error parsing JSON file: {e}")
 
     # Initialize quiz state
     if "quiz_answers" not in st.session_state:
