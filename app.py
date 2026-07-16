@@ -56,22 +56,54 @@ CREDENTIALS_FILE = "credentials.json"
 TOKEN_FILE = "token.json"
 
 def get_google_credentials():
-    """Get valid user credentials from storage or run OAuth flow."""
+    """Get valid user credentials from storage, environment variables, or Streamlit Secrets."""
     creds = None
+    
+    # 1. Try to load token.json from local file or Streamlit Secrets
     if os.path.exists(TOKEN_FILE):
         creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+    elif "google" in st.secrets and "token" in st.secrets["google"]:
+        try:
+            token_info = json.loads(st.secrets["google"]["token"])
+            creds = Credentials.from_authorized_user_info(token_info, SCOPES)
+        except Exception as e:
+            st.error(f"Failed to load token from Streamlit Secrets: {e}")
+            
+    # 2. If credentials are not valid (expired, etc.), refresh or recreate
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            if not os.path.exists(CREDENTIALS_FILE):
-                st.error(f"Google credentials file not found: {CREDENTIALS_FILE}")
-                st.info("Please download credentials.json from Google Cloud Console and place it in the app directory.")
+            try:
+                creds.refresh(Request())
+            except Exception as e:
+                st.error(f"Failed to refresh Google credentials: {e}")
+                creds = None
+                
+        if not creds or not creds.valid:
+            # Check Streamlit Secrets for credentials first
+            if "google" in st.secrets and "credentials" in st.secrets["google"]:
+                try:
+                    creds_info = json.loads(st.secrets["google"]["credentials"])
+                    flow = InstalledAppFlow.from_client_config(creds_info, SCOPES)
+                    creds = flow.run_local_server(port=0)
+                except Exception as e:
+                    st.error(f"Failed to run OAuth flow with Secrets credentials: {e}")
+                    return None
+            # Otherwise fall back to local files
+            elif os.path.exists(CREDENTIALS_FILE):
+                flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_FILE, SCOPES)
+                creds = flow.run_local_server(port=0)
+            else:
+                st.error("Google credentials not found in local files or Streamlit Secrets.")
+                st.info("Please set 'google.credentials' and 'google.token' in Streamlit Secrets, or place credentials.json in the local app directory.")
                 return None
-            flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_FILE, SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open(TOKEN_FILE, "w") as token:
-            token.write(creds.to_json())
+        
+        # Save token.json locally if possible (will fail safely in read-only environments)
+        try:
+            with open(TOKEN_FILE, "w") as token:
+                token.write(creds.to_json())
+        except Exception:
+            pass
+            
     return creds
 
 def get_calendar_service():
