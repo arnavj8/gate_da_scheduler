@@ -55,6 +55,10 @@ SCOPES = ["https://www.googleapis.com/auth/calendar"]
 CREDENTIALS_FILE = "credentials.json"
 TOKEN_FILE = "token.json"
 
+def is_google_connected():
+    """Check if Google Calendar is connected via local file or Streamlit Secrets."""
+    return os.path.exists(TOKEN_FILE) or ("google" in st.secrets and "token" in st.secrets["google"])
+
 def get_google_credentials():
     """Get valid user credentials from storage, environment variables, or Streamlit Secrets."""
     creds = None
@@ -287,7 +291,7 @@ page = st.sidebar.radio(
 # Google Calendar setup status
 st.sidebar.markdown("---")
 st.sidebar.subheader("📅 Google Calendar")
-creds_status = "✅ Connected" if os.path.exists(TOKEN_FILE) else "❌ Not Connected"
+creds_status = "✅ Connected" if is_google_connected() else "❌ Not Connected"
 st.sidebar.write(creds_status)
 
 if st.sidebar.button("🔗 Connect Google Calendar"):
@@ -418,7 +422,7 @@ if page == "📋 Task Manager":
                 with col3:
                     if st.button("🗑️ Delete", key=f"delete_{task['id']}"):
                         event_id = delete_task(task['id'])
-                        if event_id and os.path.exists(TOKEN_FILE):
+                        if event_id and is_google_connected():
                             service = get_calendar_service()
                             if service:
                                 try:
@@ -452,7 +456,7 @@ if page == "📋 Task Manager":
                             if st.form_submit_button("💾 Save"):
                                 update_task(task['id'], new_title, new_description, new_due_date.isoformat(), new_priority)
                                 # Update calendar if synced
-                                if task['synced_calendar'] and os.path.exists(TOKEN_FILE):
+                                if task['synced_calendar'] and is_google_connected():
                                     service = get_calendar_service()
                                     if service and task['calendar_event_id']:
                                         try:
@@ -477,13 +481,17 @@ elif page == "📅 Calendar Sync":
 
     with col1:
         st.subheader("Connection Status")
-        if os.path.exists(TOKEN_FILE):
+        if is_google_connected():
             st.success("✅ Connected to Google Calendar")
-            st.info("Your credentials are saved in token.json")
+            if os.path.exists(TOKEN_FILE):
+                st.info("Your credentials are saved in token.json")
+            else:
+                st.info("Your credentials are loaded from Streamlit Secrets")
 
             if st.button("🔌 Disconnect"):
-                os.remove(TOKEN_FILE)
-                st.success("Disconnected from Google Calendar")
+                if os.path.exists(TOKEN_FILE):
+                    os.remove(TOKEN_FILE)
+                st.success("Disconnected from Google Calendar! If running on Streamlit Cloud, please also clear your secrets in the Streamlit Console.")
                 st.rerun()
         else:
             st.warning("❌ Not connected to Google Calendar")
@@ -504,7 +512,7 @@ elif page == "📅 Calendar Sync":
 
     with col2:
         st.subheader("Sync Actions")
-        if os.path.exists(TOKEN_FILE):
+        if is_google_connected():
             tasks = get_all_tasks()
             unsynced = [t for t in tasks if t['synced_calendar'] == 0 and t['completed'] == 0]
             synced = [t for t in tasks if t['synced_calendar'] == 1]
