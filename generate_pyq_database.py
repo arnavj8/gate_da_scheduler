@@ -90,24 +90,29 @@ def call_llm_to_parse_questions(page_text, year):
     
     prompt = f"""
 You are an expert GATE Data Science & AI (DA) educator. Analyze the following text extracted from the GATE {year} DA Question Paper.
-Extract all the questions found on this page. For each question, construct a JSON object matching this exact schema:
+Extract all the questions found on this page. Construct a JSON object with a single key "questions" containing a list of question objects matching this exact schema:
 
 {{
-  "id": <a unique integer starting from {year * 100 + 1}>,
-  "year": {year},
-  "subject": "<one of: Probability & Statistics, Linear Algebra, Calculus & Optimization, Programming, Data Structures & Algorithms, Database Management & Warehousing, Machine Learning, Artificial Intelligence (AI)>",
-  "type": "<one of: MCQ, MSQ, NAT>",
-  "question": "<The question text in LaTeX format. Use $...$ for inline math and $$...$$ for block math equations.>",
-  "options": ["a) ...", "b) ...", "c) ...", "d) ..."], // empty array [] for NAT questions
-  "answer": "<The correct option string (e.g. 'a) ...') or correct option key, or numerical value/range for NAT>",
-  "explanation": "<A detailed step-by-step mathematical derivation and explanation in Markdown and LaTeX format.>"
+  "questions": [
+    {{
+      "id": <a unique integer starting from {year * 100 + 1}>,
+      "year": {year},
+      "subject": "<one of: Probability & Statistics, Linear Algebra, Calculus & Optimization, Programming, Data Structures & Algorithms, Database Management & Warehousing, Machine Learning, Artificial Intelligence (AI)>",
+      "type": "<one of: MCQ, MSQ, NAT>",
+      "question": "<The question text in LaTeX format. Use $...$ for inline math and $$...$$ for block math equations.>",
+      "options": ["a) ...", "b) ...", "c) ...", "d) ..."], // empty array [] for NAT questions
+      "answer": "<The correct option string (e.g. 'a) ...') or correct option key, or numerical value/range for NAT>",
+      "explanation": "<A detailed step-by-step mathematical derivation and explanation in Markdown and LaTeX format.>"
+    }}
+  ]
 }}
 
 Guidelines:
 1. Ensure all mathematical expressions are properly formatted in LaTeX using standard KaTeX notation.
 2. Escape backslashes in JSON (e.g., use \\lambda instead of \lambda, \\frac instead of \frac).
-3. If no question is found on the page, return an empty array [].
-4. Output ONLY a valid JSON array, do not wrap in markdown blocks or include explanations outside the JSON.
+3. Important: If you need to write double quotes inside any string field, escape them as \\\" (e.g. \\\"idempotent\\\").
+4. If no question is found on the page, return a JSON object with an empty array: {{"questions": []}}.
+5. Output ONLY a valid JSON object matching the schema above. Do not include any explanations outside the JSON.
 
 Here is the extracted text:
 {page_text}
@@ -118,7 +123,8 @@ Here is the extracted text:
         "messages": [
             {"role": "user", "content": prompt}
         ],
-        "max_tokens": 4096
+        "max_tokens": 4096,
+        "response_format": { "type": "json_object" }
     }
     
     try:
@@ -140,7 +146,12 @@ Here is the extracted text:
         
         # Clean up unescaped LaTeX backslashes inside JSON string
         cleaned_content = clean_json_string(content)
-        return json.loads(cleaned_content)
+        data = json.loads(cleaned_content)
+        if isinstance(data, dict) and "questions" in data:
+            return data["questions"]
+        elif isinstance(data, list):
+            return data
+        return []
     except Exception as e:
         print(f"Error calling LLM or parsing response: {e}")
         return []
