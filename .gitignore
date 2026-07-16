@@ -1,0 +1,20 @@
+# Credentials and Secrets
+credentials.json
+token.json
+.streamlit/secrets.toml
+
+# Databases
+tasks.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
