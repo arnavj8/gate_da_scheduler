@@ -95,7 +95,7 @@ Extract all the questions found on this page. Construct a JSON object with a sin
 {{
   "questions": [
     {{
-      "id": <a unique integer starting from {year * 100 + 1}>,
+      "number": <the integer question number on the paper, e.g. 1, 2, ...>,
       "year": {year},
       "subject": "<one of: Probability & Statistics, Linear Algebra, Calculus & Optimization, Programming, Data Structures & Algorithms, Database Management & Warehousing, Machine Learning, Artificial Intelligence (AI)>",
       "type": "<one of: MCQ, MSQ, NAT>",
@@ -207,6 +207,7 @@ def main():
         print(f"Processing {len(pages)-1} pages of {pdf} for year {year}...")
         
         new_questions = []
+        fallback_counter = 1
         for p_idx, page in enumerate(pages):
             if not page.strip():
                 continue
@@ -214,10 +215,25 @@ def main():
             questions = call_llm_to_parse_questions(page, year)
             if questions:
                 for q in questions:
-                    if q.get("id") not in existing_ids:
+                    # Determine unique ID from question number
+                    q_num = q.get("number")
+                    if q_num is not None:
+                        try:
+                            q_id = year * 1000 + int(q_num)
+                        except ValueError:
+                            q_id = year * 1000 + fallback_counter
+                            fallback_counter += 1
+                    else:
+                        q_id = year * 1000 + fallback_counter
+                        fallback_counter += 1
+                    
+                    q["id"] = q_id
+                    
+                    if q_id not in existing_ids:
                         new_questions.append(q)
-                        existing_ids.add(q["id"])
-                        print(f"  Added Question: Q{q.get('id')} - {q.get('subject')}")
+                        existing_ids.add(q_id)
+                        display_num = q_num if q_num is not None else (q_id % 1000)
+                        print(f"  Added Question: Q{display_num} - {q.get('subject')}")
                         
         if new_questions:
             existing_questions.extend(new_questions)
