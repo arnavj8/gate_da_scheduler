@@ -263,16 +263,76 @@ PRIORITY_STYLE = {
     "Low": "background-color: #e8f5e9; border-left: 4px solid #4caf50;"
 }
 
-# GATE DA Study Topics (predefined)
+# GATE DA Study Topics (Predefined & matched with the official IIT Guwahati syllabus)
 GATE_DA_TOPICS = {
-    "Probability & Statistics": ["Probability Distributions", "Hypothesis Testing", "Regression Analysis", "Statistical Inference"],
-    "Linear Algebra": ["Matrices", "Eigenvalues & Eigenvectors", "Vector Spaces", "Linear Transformations"],
-    "Calculus": ["Multivariable Calculus", "Optimization", "Differential Equations"],
-    "Programming (Python/R)": ["Data Structures", "Pandas/NumPy", "Data Visualization", "ML Libraries"],
-    "Machine Learning": ["Supervised Learning", "Unsupervised Learning", "Model Evaluation", "Feature Engineering"],
-    "Databases & SQL": ["SQL Queries", "Database Design", "NoSQL Basics"],
-    "Data Visualization": ["Matplotlib/Seaborn", "Tableau/PowerBI", "Dashboard Design"],
-    "Big Data": ["Hadoop/Spark Basics", "MapReduce", "Data Warehousing"]
+    "Probability & Statistics": [
+        "Permutations & Combinations (Counting)",
+        "Probability Axioms, Sample Space, Events",
+        "Independent & Mutually Exclusive Events",
+        "Marginal, Conditional & Joint Probability",
+        "Bayes' Theorem",
+        "Random Variables (Discrete & Continuous)",
+        "Probability Mass & Density Functions (PMF & PDF)",
+        "Cumulative Distribution Functions (CDF)",
+        "Expectation, Variance & Conditional Expectation",
+        "Mean, Median, Mode & Standard Deviation",
+        "Correlation and Covariance"
+    ],
+    "Linear Algebra": [
+        "Matrices & Determinants",
+        "Systems of Linear Equations",
+        "Eigenvalues & Eigenvectors",
+        "LU Decomposition",
+        "Singular Value Decomposition (SVD)"
+    ],
+    "Calculus & Optimization": [
+        "Limits, Continuity & Differentiability",
+        "Maxima & Minima (Single Variable)",
+        "Taylor Series",
+        "Functions of Multiple Variables (Partial Derivatives, Gradient)",
+        "Unconstrained Optimization (Local/Global Minima)",
+        "Constrained Optimization (Lagrange Multipliers)",
+        "Gradient Descent Method"
+    ],
+    "Programming, Data Structures & Algorithms": [
+        "Programming in Python (Syntax, Control Flow, Functions)",
+        "Stacks, Queues, and Linked Lists",
+        "Trees (Binary Trees, BSTs) and Hash Tables",
+        "Search Algorithms (Linear & Binary Search)",
+        "Sorting Algorithms (Selection, Bubble, Insertion, Merge, Quick Sort)",
+        "Graph Theory (Basic Traversals: BFS, DFS)",
+        "Graph Algorithms (Shortest Path: Dijkstra)"
+    ],
+    "Database Management & Warehousing": [
+        "ER-Model (Entities, Relationships, Attributes)",
+        "Relational Model (Relational Algebra, Tuple Calculus)",
+        "SQL (Queries, Joins, Subqueries)",
+        "Integrity Constraints & Normal Forms (1NF, 2NF, 3NF, BCNF)",
+        "File Organization & Indexing (B/B+ Trees)",
+        "Data Preprocessing (Normalization, Discretization, Sampling, Compression)",
+        "Data Warehousing & Multidimensional Modeling (Schema, Concept Hierarchies)"
+    ],
+    "Machine Learning": [
+        "Supervised Learning: Regression (Linear, Ridge)",
+        "Supervised Learning: Classification (Logistic Regression, k-NN, Naive Bayes)",
+        "Linear Discriminant Analysis (LDA)",
+        "Support Vector Machines (SVM)",
+        "Decision Trees & Random Forests",
+        "Bias-Variance Trade-off",
+        "Model Evaluation & Cross-validation (LOO, k-fold)",
+        "Multi-Layer Perceptrons (MLPs) & Feed-Forward Neural Networks",
+        "Unsupervised Learning: Clustering (k-means, k-medoids, Hierarchical)",
+        "Dimensionality Reduction: Principal Component Analysis (PCA)"
+    ],
+    "Artificial Intelligence (AI)": [
+        "Uninformed Search (BFS, DFS, Depth-limited, Iterative Deepening)",
+        "Informed Search (A*, Greedy Best-First)",
+        "Adversarial Search (Minimax, Alpha-beta pruning)",
+        "Propositional & Predicate Logic (Syntax, Semantics, Inference)",
+        "Reasoning under Uncertainty (Conditional Independence)",
+        "Bayesian Networks (Exact inference via variable elimination)",
+        "Approximate Inference via Sampling"
+    ]
 }
 
 # Initialize database on startup
