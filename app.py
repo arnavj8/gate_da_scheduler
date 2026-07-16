@@ -335,6 +335,110 @@ GATE_DA_TOPICS = {
     ]
 }
 
+# GATE DA Previous Year Questions Database (2024-2026)
+GATE_DA_PYQS = [
+    {
+        "id": 1,
+        "year": 2024,
+        "subject": "Probability & Statistics",
+        "type": "MCQ",
+        "question": "Let $X$ be a Poisson random variable with parameter $\\lambda$. If $P(X = 0) = 0.2$, what is the variance of $X$?",
+        "options": ["a) $\\ln 5$", "b) $\\ln 2$", "c) 5", "d) 2"],
+        "answer": "a) $\\ln 5$",
+        "explanation": "For a Poisson random variable $X$, the probability mass function is $P(X = k) = \\frac{e^{-\\lambda} \\lambda^k}{k!}$.\n\nGiven $P(X = 0) = e^{-\\lambda} = 0.2 = \\frac{1}{5}$.\n\nTaking the natural logarithm on both sides:\n$-\\lambda = \\ln(1/5) = -\\ln(5) \\implies \\lambda = \\ln(5)$.\n\nSince the variance of a Poisson random variable is equal to its parameter $\\lambda$, the variance is $\\ln 5$."
+    },
+    {
+        "id": 2,
+        "year": 2024,
+        "subject": "Linear Algebra",
+        "type": "MCQ",
+        "question": "Let $M$ be a $3\\times3$ real matrix with eigenvalues 2, $1+i$, and $1-i$. What is the determinant of $M$?",
+        "options": ["a) 2", "b) 4", "c) 0", "d) $2+2i$"],
+        "answer": "b) 4",
+        "explanation": "The determinant of a matrix is equal to the product of its eigenvalues.\n\nThe eigenvalues are $2$, $1+i$, and $1-i$.\n\nTherefore, $\\det(M) = 2 \\times (1+i) \\times (1-i) = 2 \\times (1 - i^2) = 2 \\times (1 - (-1)) = 2 \\times 2 = 4$."
+    },
+    {
+        "id": 3,
+        "year": 2024,
+        "subject": "Machine Learning",
+        "type": "MCQ",
+        "question": "Consider the following statements regarding Linear Regression and Logistic Regression:\n\nI. Linear Regression assumes a linear relationship between the input variables and the continuous output.\nII. Logistic Regression outputs a probability value bounded between 0 and 1.\n\nWhich of the statements is/are correct?",
+        "options": ["a) Only I", "b) Only II", "c) Both I and II", "d) Neither I nor II"],
+        "answer": "c) Both I and II",
+        "explanation": "Statement I is correct because linear regression models the target variable as a linear combination of input features.\n\nStatement II is correct because logistic regression uses the sigmoid function $\\sigma(z) = \\frac{1}{1+e^{-z}}$ which maps any real number to the range $(0, 1)$, representing a probability."
+    },
+    {
+        "id": 4,
+        "year": 2024,
+        "subject": "Database Management & Warehousing",
+        "type": "MCQ",
+        "question": "Suppose a relation schema $R(A, B, C, D)$ has the functional dependencies $A \\rightarrow B$ and $B \\rightarrow C$. What is the highest normal form that relation $R$ satisfies?",
+        "options": ["a) 1NF", "b) 2NF", "c) 3NF", "d) BCNF"],
+        "answer": "a) 1NF",
+        "explanation": "First, let's find the candidate keys. The attribute $D$ does not appear on the right side of any dependency, and $A$ determines $B$ and $B$ determines $C$.\n\nThus, the candidate key is $AD$.\n\nSince $AD$ is the only candidate key:\n- Prime attributes: $A, D$.\n- Non-prime attributes: $B, C$.\n\nFor $A \\rightarrow B$: $A$ (part of key) determines $B$ (non-prime). This is a partial dependency. Since a partial dependency exists, $R$ is not in 2NF. Therefore, the highest normal form satisfied is 1NF."
+    },
+    {
+        "id": 5,
+        "year": 2025,
+        "subject": "Programming, Data Structures & Algorithms",
+        "type": "MCQ",
+        "question": "Which of the following sorting algorithms has a worst-case time complexity of $O(n \\log n)$?",
+        "options": ["a) Bubble Sort", "b) Quick Sort", "c) Merge Sort", "d) Insertion Sort"],
+        "answer": "c) Merge Sort",
+        "explanation": "Merge Sort uses a divide-and-conquer strategy that always divides the array into halves and takes $O(n)$ time to merge them, resulting in $O(n \\log n)$ time complexity in best, average, and worst cases.\n\nBubble Sort, Insertion Sort, and Quick Sort all have $O(n^2)$ worst-case time complexities."
+    },
+    {
+        "id": 6,
+        "year": 2025,
+        "subject": "Artificial Intelligence (AI)",
+        "type": "MCQ",
+        "question": "In informed search, if a heuristic function $h(n)$ is admissible, what does it guarantee for the $A^*$ search algorithm?",
+        "options": ["a) It will always find the optimal solution if one exists.", "b) It will use less memory than BFS.", "c) It will always expand fewer nodes than Greedy Best-First Search.", "d) It will run in linear time."],
+        "answer": "a) It will always find the optimal solution if one exists.",
+        "explanation": "An admissible heuristic never overestimates the cost to reach the goal. When $A^*$ search uses an admissible heuristic on a tree search, it is guaranteed to be optimal (i.e., it will find the lowest-cost path to a goal)."
+    },
+    {
+        "id": 7,
+        "year": 2026,
+        "subject": "Calculus & Optimization",
+        "type": "MCQ",
+        "question": "Consider the function $f(x) = x^3 - 3x^2 + 2$. What is the local minimum of this function?",
+        "options": ["a) $x = 0$", "b) $x = 2$", "c) $x = -2$", "d) $x = 1$"],
+        "answer": "b) $x = 2$",
+        "explanation": "First, take the first derivative: $f'(x) = 3x^2 - 6x$.\n\nSet $f'(x) = 0 \\implies 3x(x - 2) = 0 \\implies x = 0$ or $x = 2$.\n\nNext, take the second derivative: $f''(x) = 6x - 6$.\n\nEvaluate $f''(x)$ at the critical points:\n- At $x = 0$: $f''(0) = -6 < 0 \\implies$ Local maximum.\n- At $x = 2$: $f''(2) = 6 > 0 \\implies$ Local minimum.\n\nThus, the local minimum occurs at $x = 2$."
+    },
+    {
+        "id": 8,
+        "year": 2025,
+        "subject": "Probability & Statistics",
+        "type": "MCQ",
+        "question": "Consider a fair six-sided die. What is the expected number of rolls needed to get the number 6 for the first time?",
+        "options": ["a) 6", "b) 36", "c) 5", "d) 1"],
+        "answer": "a) 6",
+        "explanation": "This follows a geometric distribution where the probability of success $p = 1/6$.\n\nThe expected value of a geometric random variable (number of trials until the first success) is $1/p$.\n\nTherefore, the expected number of rolls is $1 / (1/6) = 6$."
+    },
+    {
+        "id": 9,
+        "year": 2026,
+        "subject": "Linear Algebra",
+        "type": "MCQ",
+        "question": "Let $A$ be an idempotent matrix, meaning $A^2 = A$. What are the only possible eigenvalues of $A$?",
+        "options": ["a) 0 and 1", "b) 1 and -1", "c) Any real number", "d) 0 and -1"],
+        "answer": "a) 0 and 1",
+        "explanation": "Let $\\lambda$ be an eigenvalue of $A$ with corresponding eigenvector $v \\neq 0$. Thus, $Av = \\lambda v$.\n\nSince $A^2 = A$, we have:\n$A^2v = Av \\implies A(Av) = \\lambda v \\implies A(\\lambda v) = \\lambda v \\implies \\lambda(Av) = \\lambda v \\implies \\lambda^2 v = \\lambda v$.\n\nSince $v \\neq 0$, we have:\n$\\lambda^2 = \\lambda \\implies \\lambda(\\lambda - 1) = 0 \\implies \\lambda = 0$ or $\\lambda = 1$."
+    },
+    {
+        "id": 10,
+        "year": 2026,
+        "subject": "Machine Learning",
+        "type": "MCQ",
+        "question": "In Support Vector Machines (SVM), what is the effect of increasing the regularization parameter $C$ (soft margin parameter) in the objective function?",
+        "options": ["a) It allows more margin violations, leading to a wider margin.", "b) It penalizes margin violations more heavily, leading to a narrower margin.", "c) It makes the decision boundary completely linear.", "d) It has no effect on the margin width."],
+        "answer": "b) It penalizes margin violations more heavily, leading to a narrower margin.",
+        "explanation": "The parameter $C$ controls the trade-off between maximizing the margin and minimizing the training classification error.\n\nA large value of $C$ penalizes misclassifications heavily, forcing the SVM to find a boundary that classifies training points correctly at the expense of a smaller/narrower margin.\n\nA small value of $C$ allows more margin violations for a wider margin."
+    }
+]
+
 # Initialize database on startup
 init_db()
 
@@ -344,7 +448,7 @@ st.sidebar.markdown("---")
 
 page = st.sidebar.radio(
     "Navigation",
-    ["📋 Task Manager", "📅 Calendar Sync", "📚 Study Topics", "📊 Progress Tracker", "⚙️ Settings"],
+    ["📋 Task Manager", "📅 Calendar Sync", "📚 Study Topics", "📝 PYQ Practice", "📊 Progress Tracker", "⚙️ Settings"],
     index=0
 )
 
@@ -638,6 +742,131 @@ elif page == "📚 Study Topics":
                         )
                         st.success(f"Created task for {subtopic}!")
                         st.rerun()
+
+elif page == "📝 PYQ Practice":
+    st.title("📝 PYQ Practice (2024-2026)")
+    st.markdown("Practice official Previous Year Questions (PYQs) from GATE Data Science & AI (DA) exams.")
+
+    # Initialize quiz state
+    if "quiz_answers" not in st.session_state:
+        st.session_state.quiz_answers = {}
+    if "quiz_scores" not in st.session_state:
+        st.session_state.quiz_scores = {}
+
+    # Filters
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        filter_subject = st.selectbox("Filter by Subject", ["All"] + list(GATE_DA_TOPICS.keys()))
+    with col2:
+        filter_year = st.selectbox("Filter by Year", ["All", 2024, 2025, 2026])
+    with col3:
+        filter_type = st.selectbox("Filter by Question Type", ["All", "MCQ", "MSQ", "NAT"])
+
+    # Filtered questions list
+    filtered_pyqs = GATE_DA_PYQS
+    if filter_subject != "All":
+        filtered_pyqs = [q for q in filtered_pyqs if q["subject"] == filter_subject]
+    if filter_year != "All":
+        filtered_pyqs = [q for q in filtered_pyqs if q["year"] == filter_year]
+    if filter_type != "All":
+        filtered_pyqs = [q for q in filtered_pyqs if q["type"] == filter_type]
+
+    # Score calculation
+    correct_count = sum(1 for q_id, is_correct in st.session_state.quiz_scores.items() if is_correct)
+    total_answered = len(st.session_state.quiz_scores)
+    
+    # Progress UI
+    if total_answered > 0:
+        st.markdown(f"**Score Card: {correct_count}/{total_answered} Correct**")
+        st.progress(correct_count / total_answered)
+    else:
+        st.markdown("*Start practicing below to see your progress!*")
+
+    st.markdown("---")
+
+    if not filtered_pyqs:
+        st.info("No questions match your filter criteria. Try expanding your search!")
+    else:
+        for idx, q in enumerate(filtered_pyqs):
+            # Question card container
+            with st.container():
+                st.markdown(
+                    f"""
+                    <div style="background-color: #f1f3f4; padding: 15px; border-radius: 8px; border-left: 5px solid #1a73e8; margin-bottom: 10px;">
+                        <span style="background-color: #1a73e8; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold;">GATE DA {q['year']}</span>
+                        <span style="background-color: #e8f0fe; color: #1a73e8; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['subject']}</span>
+                        <span style="background-color: #fce8e6; color: #d93025; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; margin-left: 5px;">{q['type']}</span>
+                        <p style="margin-top: 10px; font-size: 1.1em; font-weight: 500;">Q{idx+1}. {q['question']}</p>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+                # Question Input depending on type
+                user_ans = None
+                q_key = f"q_{q['id']}"
+                
+                if q["type"] == "MCQ":
+                    selected_opt = st.radio(
+                        "Select your option:",
+                        q["options"],
+                        index=None,
+                        key=f"radio_{q_key}"
+                    )
+                    user_ans = selected_opt
+                
+                elif q["type"] == "MSQ":
+                    st.write("Select one or more options:")
+                    selected_opts = []
+                    for opt in q["options"]:
+                        if st.checkbox(opt, key=f"check_{q_key}_{opt}"):
+                            selected_opts.append(opt)
+                    user_ans = sorted(selected_opts)
+                
+                elif q["type"] == "NAT":
+                    user_ans = st.text_input("Enter your numerical answer:", key=f"text_{q_key}").strip()
+
+                # Action buttons
+                col_submit, col_sol = st.columns([1, 4])
+                with col_submit:
+                    if st.button("Submit Answer", key=f"submit_{q_key}"):
+                        if user_ans is not None and user_ans != [] and user_ans != "":
+                            st.session_state.quiz_answers[q_key] = user_ans
+                            
+                            # Verify correctness
+                            is_correct = False
+                            if q["type"] == "MCQ":
+                                is_correct = (user_ans == q["answer"])
+                            elif q["type"] == "MSQ":
+                                is_correct = (user_ans == sorted(q["answer"]))
+                            elif q["type"] == "NAT":
+                                # Handle numerical float comparison
+                                try:
+                                    is_correct = abs(float(user_ans) - float(q["answer"])) < 0.01
+                                except ValueError:
+                                    is_correct = (user_ans.lower() == str(q["answer"]).lower())
+                                    
+                            st.session_state.quiz_scores[q_key] = is_correct
+                            st.rerun()
+                        else:
+                            st.warning("Please provide an answer first.")
+
+                # Show validation results if answered
+                if q_key in st.session_state.quiz_answers:
+                    submitted_val = st.session_state.quiz_answers[q_key]
+                    is_correct = st.session_state.quiz_scores.get(q_key, False)
+                    
+                    if is_correct:
+                        st.success(f"🎉 Correct! Your answer: {submitted_val}")
+                    else:
+                        st.error(f"❌ Incorrect. Your answer: {submitted_val}")
+                    
+                    # Display solution
+                    with st.expander("📖 View Detailed Solution", expanded=False):
+                        st.markdown(f"**Correct Answer:** {q['answer']}")
+                        st.markdown(q["explanation"])
+                
+                st.markdown("<br><hr style='border: 0.5px solid #ddd;'><br>", unsafe_allow_html=True)
 
 elif page == "📊 Progress Tracker":
     st.title("📊 Progress Tracker")
